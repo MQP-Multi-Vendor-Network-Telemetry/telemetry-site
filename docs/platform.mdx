@@ -1,0 +1,51 @@
+---
+title: Observability platform
+description: A dashboard for network operators that charts telemetry, keeps its history, and snapshots, checks and repairs switch configuration.
+---
+
+import Repo from '@site/src/components/Repo';
+
+<Repo name="telemetry-platform" />
+
+The platform is built for network operators. You add a switch by its
+management address, and the platform charts its telemetry, keeps its history,
+snapshots its configuration, notices when the configuration drifts and repairs
+it.
+
+It's one subscriber of the [telemetry pipeline](./pipeline.mdx). It reads the
+same normalized OpenConfig topic that any other program could, so its charts
+don't depend on any vendor's own names.
+
+## What it does
+
+- **Devices.** *Add device* probes a switch over SSH and shows its platform,
+  software version and host key. When you confirm, the platform pins that key
+  and registers the switch with the pipeline, so telemetry starts flowing.
+- **Telemetry.** Packet rate, throughput, errors and discards for every device
+  and port, from the last five minutes back to a week. The platform stores the
+  normalized stream in TimescaleDB, so history survives restarts.
+- **Configuration.** Take a snapshot of a switch's configuration, see how it
+  has drifted from the last one, and heal it or restore an older snapshot.
+- **Self-repair, within limits.** An operator can turn on a watcher that
+  restores drifted configuration by itself. For anything restoring a
+  configuration can't fix, such as a dead container, it reports the problem
+  and refuses to act, rather than claiming success.
+
+The platform changes a device only when an operator has asked it to.
+
+## Coming next
+
+- **Anomaly detection** over the telemetry history.
+- **An analysis LLM** that explains what the anomaly detection finds and
+  suggests a fix. An operator still approves any change.
+- **A redesigned interface**, which the pipeline's console and the lab's UI
+  already share, so the three products look like one family.
+
+## Built with
+
+Python and FastAPI, TimescaleDB on PostgreSQL, a Kafka consumer, SSH for device
+control, and React with TypeScript for the interface.
+
+## Source code
+
+Coming soon. The repository is private while we build it.

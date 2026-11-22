@@ -1,0 +1,59 @@
+---
+slug: /
+title: How they fit together
+description: Our three products, what each one owns, and the few places where they meet.
+---
+
+import Flow from '@site/src/components/Flow';
+
+Every switch vendor reports telemetry its own way. Cisco calls a counter
+`in-discards-64`, Nokia's SR Linux calls the same thing
+`statistics/in-discarded-packets`, and the units, nesting and enums differ too.
+A monitoring tool has to learn each vendor's names before it can show anything,
+and learn them again whenever a schema changes.
+
+We split the work into three products, each in its own repository:
+
+| Product | What it does |
+|---|---|
+| [Telemetry pipeline](./pipeline.mdx) | Collects telemetry from switches, translates it into [OpenConfig](https://openconfig.net/) and publishes it on a broker. |
+| [Observability platform](./platform.mdx) | One subscriber of the pipeline: a dashboard, history and device control for network operators. |
+| [SONiC lab](./sonic-lab.mdx) | Simulated SONiC switches that stand in for real hardware. |
+
+## Two paths through the system
+
+<Flow />
+
+Every message takes the top path, and none of it involves an LLM. A mapping
+turns one vendor's schema into OpenConfig, and once it's approved, translating
+a record is a lookup. The bottom path runs only when the pipeline meets a schema
+it has no mapping for. A small local model proposes a mapping, and a person
+reviews it. Records that arrive in the meantime wait, and they're replayed once
+the mapping is approved.
+
+## Where they meet
+
+The products share no code. They meet in only three places:
+
+- **The broker.** The pipeline publishes on Kafka topics, and the normalized
+  topic is its public API. Its version is in the topic name and in every
+  message, and a breaking change gets a new topic, so a subscriber is never
+  broken in place.
+- **One HTTP API.** The platform tells the pipeline which switches to collect
+  from through the pipeline's targets API, the way any other client would.
+- **The devices.** Each product reaches a switch on its own, over SSH with its
+  own key. gNMI comes next, for switches that support it.
+
+Because those are the only seams, replacing the lab with real switches changes
+nothing in the pipeline or the platform, and the platform is one subscriber
+among any number.
+
+## Who owns what
+
+- **The pipeline** owns the list of switches to collect from, the broker and
+  its topics, and the mappings, with their review.
+- **The platform** owns the device inventory and everything that changes a
+  device: snapshots, drift, heal and restore.
+- **The lab** creates switches and nothing more. Onboarding, collecting from
+  and repairing them is the other two products' job, done the same way it
+  would be for real hardware.
