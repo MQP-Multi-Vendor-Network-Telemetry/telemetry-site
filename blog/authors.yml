@@ -1,25 +1,16 @@
-yangshun:
-  name: Yangshun Tay
-  title: Ex-Meta Staff Engineer, Co-founder GreatFrontEnd
-  url: https://linkedin.com/in/yangshun
-  image_url: https://github.com/yangshun.png
-  page: true
+# Blog authors. A post names them by key: `authors: [nathan]`.
+#
+# Optional, shown on each post's byline and on /devlog/authors:
+#   title: a one-line headline, the same as on the front page's team card
+#   socials:
+#     linkedin: your-handle      # the part after linkedin.com/in/
+#   image_url: /img/team/nathan.jpg
+nathan:
+  name: Nathan Cote
+  title: AI Applications Engineering Intern @ Teradyne | BS/MS in CS @ WPI
   socials:
-    x: yangshunz
-    linkedin: yangshun
-    github: yangshun
-    newsletter: https://www.greatfrontend.com
-
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
-  socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
+    linkedin: nathanacote
+shamit:
+  name: Shamit Soni
+thomas:
+  name: Thomas Gilbert

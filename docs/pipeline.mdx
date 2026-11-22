@@ -1,0 +1,86 @@
+---
+title: Telemetry pipeline
+description: Collects telemetry from switches, translates it into OpenConfig and publishes it on a broker any program can subscribe to.
+---
+
+import Repo from '@site/src/components/Repo';
+
+<Repo name="telemetry-pipeline" />
+
+The pipeline collects telemetry from network switches, translates it into
+[OpenConfig](https://openconfig.net/) and publishes it on a message broker
+(Kafka). Any program on the network can subscribe, and it only has to
+understand one schema.
+
+It's a standalone product. The [observability platform](./platform.mdx) is one
+of its subscribers, but the pipeline doesn't need it.
+
+## How it works
+
+1. **Collect.** A collector polls each switch and publishes what it reads, in
+   the vendor's own names, to a raw topic. The first collector reads SONiC's
+   counter and state databases over SSH.
+2. **Translate.** The normalizer looks up the approved mapping for each
+   record's schema, and publishes the result as OpenConfig on the normalized
+   topic. That topic is the pipeline's public API.
+3. **Wait instead of guessing.** A record with no approved mapping goes to its
+   own topic and waits. When a person approves a mapping, the waiting records
+   are replayed through it.
+
+The topics are `telemetry.raw.v1`, `telemetry.unmapped.v1` and
+`telemetry.normalized.v1`. [How they fit together](./overview.mdx) shows the
+two paths through them.
+
+## The mapping LLM
+
+A **mapping** is a small declarative file that says "this vendor field is that
+OpenConfig leaf, as this type". Writing them by hand for every vendor doesn't
+scale, so the first time the pipeline sees a schema, a small local model
+proposes one from sample records. A person reviews it in the pipeline's console
+or with a command-line tool, and approves it.
+
+From then on, translating is a lookup. The LLM is never on the path every
+message takes, so it can't slow the pipeline down or make its output
+unpredictable.
+
+The model never writes the mapping itself. It answers small multiple-choice
+questions ("which field holds this leaf, if any?"), each constrained to the
+choices that actually exist, and code assembles the mapping from the answers.
+Wherever code can decide something, such as preferring a 64-bit counter over
+its wrapping 32-bit twin, code decides it, because small models follow names
+more than instructions.
+
+We don't own any Cisco or Nokia hardware, so we test the model on records
+generated from the vendors' own published YANG models. The first results are in
+the dev log: [Can a small local LLM map vendors we don't own?](/devlog/multi-vendor-mapping-eval)
+
+## Status
+
+:::success[Working]
+
+Collection, translation, the broker, the mapping store and mapping review, end
+to end on our simulated SONiC switches. Other machines on a trusted network can
+subscribe to the normalized topic.
+
+:::
+
+:::info[Testing]
+
+The mapping LLM proposes mappings, and we measure it against eight cases across
+SONiC, Cisco IOS XE and Nokia SR Linux, one of them held out so no fix is tuned
+to it.
+
+:::
+
+**Next:** more vendors and a gNMI collector, starting with a live SR Linux
+switch in the lab.
+
+## Built with
+
+Python and FastAPI, Kafka, PostgreSQL for the mapping store, OpenConfig YANG,
+and small local models rather than a hosted API. We test with qwen3:8b,
+served by Ollama.
+
+## Source code
+
+Coming soon. The repository is private while we build it.

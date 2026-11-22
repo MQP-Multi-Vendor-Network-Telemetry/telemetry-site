@@ -1,30 +1,224 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * The look of the products, applied to Infima. The colors are the TeleNorm
+ * redesign's (telemetry-platform, web/src/theme.ts): Blueprint in light mode
+ * and Night Watch in dark mode. A change to the look goes there first.
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  /* Blueprint */
+  --ifm-color-primary: #0b6e66;
+  --ifm-color-primary-dark: #0a635c;
+  --ifm-color-primary-darker: #095e57;
+  --ifm-color-primary-darkest: #084d47;
+  --ifm-color-primary-light: #0c7970;
+  --ifm-color-primary-lighter: #0d7e75;
+  --ifm-color-primary-lightest: #0e8f85;
+
+  --tn-accent-text: #07564f;
+  --tn-accent-bg: #e3f2ef;
+  --tn-page: #f3f5f7;
+  --tn-paper: #ffffff;
+  --tn-surface-2: #f8fafb;
+  --tn-surface-3: #eef2f4;
+  --tn-text: #172125;
+  --tn-text-2: #607076;
+  --tn-divider: #d9e0e4;
+  --tn-border-strong: #c3cdd3;
+  --tn-sidebar: #152326;
+  --tn-sidebar-text: #d9e5e5;
+  --tn-sidebar-muted: #829396;
+  --tn-good: #13755a;
+  --tn-good-bg: #e6f4ef;
+  --tn-warn: #95610b;
+  --tn-warn-bg: #fff3d7;
+  --tn-info: #4462a0;
+  --tn-info-bg: #eaf0fb;
+  --tn-out: #7155a4;
+
+  --ifm-background-color: var(--tn-paper);
+  --ifm-background-surface-color: var(--tn-paper);
+  --ifm-font-color-base: var(--tn-text);
+  --ifm-font-color-secondary: var(--tn-text-2);
+  --ifm-heading-color: var(--tn-text);
+  --ifm-toc-border-color: var(--tn-divider);
+  --ifm-hr-background-color: var(--tn-divider);
+  --ifm-table-border-color: var(--tn-divider);
+  --ifm-table-stripe-background: var(--tn-surface-2);
+  --ifm-table-head-background: var(--tn-surface-2);
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ifm-font-family-monospace: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ifm-heading-font-weight: 600;
+  --ifm-global-radius: 6px;
+  --ifm-code-font-size: 92%;
+  --ifm-code-background: var(--tn-surface-3);
+  --ifm-navbar-shadow: none;
+  --ifm-menu-color-background-active: var(--tn-accent-bg);
+  --ifm-menu-color-active: var(--tn-accent-text);
+  --ifm-footer-background-color: var(--tn-sidebar);
+  --ifm-footer-link-color: var(--tn-sidebar-text);
+  --ifm-footer-title-color: #ffffff;
+  --ifm-footer-color: var(--tn-sidebar-muted);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  /* Night Watch */
+  --ifm-color-primary: #50d2bd;
+  --ifm-color-primary-dark: #39ccb4;
+  --ifm-color-primary-darker: #32c4ad;
+  --ifm-color-primary-darkest: #2aa18e;
+  --ifm-color-primary-light: #67d8c6;
+  --ifm-color-primary-lighter: #73dbca;
+  --ifm-color-primary-lightest: #95e4d7;
+
+  --tn-accent-text: #80e5d5;
+  --tn-accent-bg: #153f3a;
+  --tn-page: #101719;
+  --tn-paper: #182124;
+  --tn-surface-2: #1d292c;
+  --tn-surface-3: #243235;
+  --tn-text: #edf4f3;
+  --tn-text-2: #a0b1b3;
+  --tn-divider: #314145;
+  --tn-border-strong: #465a5f;
+  --tn-sidebar: #0c1214;
+  --tn-good: #6cddae;
+  --tn-good-bg: rgba(108, 221, 174, 0.14);
+  --tn-warn: #ffd177;
+  --tn-warn-bg: rgba(255, 209, 119, 0.14);
+  --tn-info: #9bbcff;
+  --tn-info-bg: rgba(155, 188, 255, 0.14);
+  --tn-out: #d5a6ff;
+
+  --ifm-background-color: var(--tn-page);
+  --ifm-background-surface-color: var(--tn-page);
+  --ifm-color-emphasis-300: var(--tn-divider);
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background: var(--ifm-background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+
+/* Navbar: flat, with a hairline instead of a shadow. */
+.navbar {
+  border-bottom: 1px solid var(--tn-divider);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__logo {
+  height: 1.75rem;
+}
+
+/* The full name doesn't fit beside the menu button on a phone. */
+@media (max-width: 420px) {
+  .navbar__title {
+    font-size: 0.95rem;
+  }
+}
+
+.footer--dark {
+  --ifm-footer-background-color: var(--tn-sidebar);
+}
+
+.footer__copyright {
+  font-size: 0.875rem;
+}
+
+/* Admonitions in the products' status tones. */
+.alert--info {
+  --ifm-alert-background-color: var(--tn-info-bg);
+  --ifm-alert-border-color: var(--tn-info);
+  --ifm-alert-foreground-color: var(--tn-text);
+}
+
+.alert--secondary {
+  --ifm-alert-background-color: var(--tn-surface-3);
+  --ifm-alert-border-color: var(--tn-border-strong);
+  --ifm-alert-foreground-color: var(--tn-text);
+}
+
+.alert--success {
+  --ifm-alert-background-color: var(--tn-good-bg);
+  --ifm-alert-border-color: var(--tn-good);
+  --ifm-alert-foreground-color: var(--tn-text);
+}
+
+.alert--warning {
+  --ifm-alert-background-color: var(--tn-warn-bg);
+  --ifm-alert-border-color: var(--tn-warn);
+  --ifm-alert-foreground-color: var(--tn-text);
+}
+
+/* A small pill, used for "Source coming soon" and status labels. */
+.tn-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  white-space: nowrap;
+  background: var(--tn-surface-3);
+  color: var(--tn-text-2);
+}
+
+.tn-chip--good {
+  background: var(--tn-good-bg);
+  color: var(--tn-good);
+}
+
+.tn-chip--warn {
+  background: var(--tn-warn-bg);
+  color: var(--tn-warn);
+}
+
+.tn-chip--info {
+  background: var(--tn-info-bg);
+  color: var(--tn-info);
+}
+
+.tn-chip--accent {
+  background: var(--tn-accent-bg);
+  color: var(--tn-accent-text);
+}
+
+.tn-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* The line under a product page's title: repo name and source status. */
+.tn-repo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: -0.5rem 0 1.5rem;
+  color: var(--tn-text-2);
+  font-size: 0.9rem;
+}
+
+.tn-repo code {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--tn-text-2);
 }

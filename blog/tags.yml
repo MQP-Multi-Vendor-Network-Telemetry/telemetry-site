@@ -1,19 +1,21 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
-
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
-
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
-
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+# The tags a post can use. Add one here before using it in a post.
+pipeline:
+  label: Pipeline
+  permalink: /pipeline
+  description: Posts about the telemetry pipeline.
+platform:
+  label: Platform
+  permalink: /platform
+  description: Posts about the observability platform.
+sonic-lab:
+  label: SONiC lab
+  permalink: /sonic-lab
+  description: Posts about the simulated switch lab.
+mapping-llm:
+  label: Mapping LLM
+  permalink: /mapping-llm
+  description: How the pipeline proposes and checks vendor mappings.
+evaluation:
+  label: Evaluation
+  permalink: /evaluation
+  description: Experiments, test cases and results.

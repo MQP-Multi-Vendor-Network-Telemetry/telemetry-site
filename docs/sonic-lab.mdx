@@ -1,0 +1,48 @@
+---
+title: SONiC lab
+description: Simulated SONiC switches on demand, with clients and traffic, standing in for real hardware.
+---
+
+import Repo from '@site/src/components/Repo';
+
+<Repo name="sonic-lab" />
+
+We don't have a rack of switches, so the lab makes them. It runs simulated
+[SONiC](https://sonicfoundation.dev/) switches in containers, using
+containerlab, with clients and traffic, and they stand in for real hardware.
+
+## What it does
+
+- **Switches on demand.** One click, or one command, creates a SONiC switch
+  with two clients and steady traffic between them, and prints its management
+  address, ready to onboard. Another removes it.
+- **Like a real switch.** Each one runs SSH and is reached at its management
+  address as `admin`, with a trusted key, exactly like a real SONiC box.
+- **Trusted keys.** Paste a public key into the lab's UI and every running
+  switch trusts it at once, the way an operator would add it on real hardware.
+  Switches created later trust it too.
+
+## Why it's separate
+
+The lab creates switches and nothing more. Onboarding them, collecting their
+telemetry and repairing them is done by the [pipeline](./pipeline.mdx) and the
+[platform](./platform.mdx), the same way it would be for real hardware. So
+replacing the lab with real switches changes nothing in the other two products.
+
+## Its limits
+
+- The simulated switch has no gNMI, so the pipeline reads its databases over
+  SSH instead.
+- The switch image is built with debugging instrumentation, so the lab isn't
+  for performance numbers.
+- It's one vendor. A second, Nokia's SR Linux, which has a free container
+  image, is the likely next addition.
+
+## Built with
+
+containerlab, the SONiC virtual switch image, Docker, and a small Python
+(FastAPI) and React app to drive it.
+
+## Source code
+
+Coming soon. The repository is private while we build it.
